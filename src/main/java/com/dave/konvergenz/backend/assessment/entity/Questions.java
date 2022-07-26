@@ -4,11 +4,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Questions {
@@ -31,6 +29,13 @@ public class Questions {
     @Column(unique = true)
     private String title;
 
+    @OneToMany(
+            mappedBy = "question",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+    )
+    private Set<MultiChoiceAnswers> multiChoiceAnswers;
 
     @CreationTimestamp
     private Date createdAt;
@@ -76,5 +81,13 @@ public class Questions {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<MultiChoiceAnswers> getMultiChoiceAnswers() {
+        return multiChoiceAnswers;
+    }
+
+    public void setMultiChoiceAnswers(Set<MultiChoiceAnswers> multiChoiceAnswers) {
+        this.multiChoiceAnswers = multiChoiceAnswers;
     }
 }
