@@ -4,4 +4,6 @@ import com.dave.konvergenz.backend.assessment.entity.Topics;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TopicsRepository extends JpaRepository<Topics, String> {
+
+    Topics findByTopicName(String name);
 }

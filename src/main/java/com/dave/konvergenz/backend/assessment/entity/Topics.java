@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Topics {
@@ -32,6 +33,22 @@ public class Topics {
     private String topicName;
 
     private String topicDescription;
+
+    @OneToMany(
+            mappedBy = "topic",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+    )
+    private Set<Questions> questionsSet;
+
+    @OneToMany(
+            mappedBy = "topic",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+    )
+    private Set<Resources> resourcesSet;
 
     @CreationTimestamp
     private Date createdAt;
@@ -86,5 +103,21 @@ public class Topics {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Questions> getQuestionsSet() {
+        return questionsSet;
+    }
+
+    public void setQuestionsSet(Set<Questions> questionsSet) {
+        this.questionsSet = questionsSet;
+    }
+
+    public Set<Resources> getResourcesSet() {
+        return resourcesSet;
+    }
+
+    public void setResourcesSet(Set<Resources> resourcesSet) {
+        this.resourcesSet = resourcesSet;
     }
 }

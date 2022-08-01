@@ -37,6 +37,11 @@ public class Questions {
     )
     private Set<MultiChoiceAnswers> multiChoiceAnswers;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "topic_id", nullable = false)
+    private Topics topic;
+
+
     @CreationTimestamp
     private Date createdAt;
 
@@ -89,5 +94,13 @@ public class Questions {
 
     public void setMultiChoiceAnswers(Set<MultiChoiceAnswers> multiChoiceAnswers) {
         this.multiChoiceAnswers = multiChoiceAnswers;
+    }
+
+    public Topics getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topics topic) {
+        this.topic = topic;
     }
 }

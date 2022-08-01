@@ -6,9 +6,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-public class MultiChoiceAnswers {
+public class Resources {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -25,13 +26,16 @@ public class MultiChoiceAnswers {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
+    @Column(unique = true)
     private String title;
 
-    private boolean isCorrect;
+    private String url;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "question_id", nullable = false)
-    private Questions question;
+    @JoinColumn(name = "topic_id", nullable = false)
+    private Topics topic;
+
 
     @CreationTimestamp
     private Date createdAt;
@@ -39,13 +43,12 @@ public class MultiChoiceAnswers {
     @UpdateTimestamp
     private Date updatedAt;
 
-    public MultiChoiceAnswers() {
+    public Resources() {
 
     }
 
-    public MultiChoiceAnswers(String title, boolean isCorrect) {
+    public Resources(String title) {
         this.title = title;
-        this.isCorrect = isCorrect;
     }
 
     public String getId() {
@@ -64,14 +67,6 @@ public class MultiChoiceAnswers {
         this.title = title;
     }
 
-    public boolean isCorrect() {
-        return isCorrect;
-    }
-
-    public void setCorrect(boolean correct) {
-        isCorrect = correct;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -88,11 +83,19 @@ public class MultiChoiceAnswers {
         this.updatedAt = updatedAt;
     }
 
-    public Questions getQuestions() {
-        return question;
+    public String getUrl() {
+        return url;
     }
 
-    public void setQuestions(Questions questions) {
-        this.question = questions;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Topics getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topics topic) {
+        this.topic = topic;
     }
 }
